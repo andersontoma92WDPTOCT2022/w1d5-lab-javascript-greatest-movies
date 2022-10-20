@@ -28,7 +28,15 @@ const moviesTeste = [
   },
   {
     title: 'The Godfather',
-    year: 1972,
+    year: 2000,
+    director: 'Francis Ford Coppola',
+    duration: '2h 55min',
+    genre: ['Crime', 'Drama'],
+    score: 'fsadf',
+  },
+  {
+    title: 'The Godfather',
+    year: 1995,
     director: 'Francis Ford Coppola',
     duration: '2h 55min',
     genre: ['Crime', 'Drama'],
@@ -51,17 +59,18 @@ function scoresAverage(moviesArray, eFloat) {
   /*console.log(
     Math.round(100 * (somaScore / (moviesArray.length - noNumber))) / 100);   mais certo seria excluir os casos q não são números*/
   // para reutilizar a função
-  console.log(typeof eFloat, ' éfloat');
   if (eFloat == undefined) {
     return Math.round((100 * somaScore) / moviesArray.length) / 100;
   }
+  console.log(' é float');
+  console.log(somaScore / moviesArray.length);
   return somaScore / moviesArray.length;
 
   // arredonda antes de retornar
 }
 
 //console.log(scoresAverage(moviesTeste), '<-average');
-
+console.log('*********************************');
 // Iteration 4: Drama movies - Get the average of Drama Movies
 function dramaMoviesScore(moviesArray) {
   const dramaMoviesArray = moviesArray.filter((cadaObjeto) =>
@@ -73,10 +82,32 @@ function dramaMoviesScore(moviesArray) {
 }
 
 // Iteration 5: Ordering by year - Order by year, ascending (in growing order)
-function orderByYear(moviesArray) {}
-
+function orderByYear(moviesArray) {
+  let auxArray = Array.from(moviesArray);
+  auxArray.sort((objetoA, objetoB) => {
+    if (objetoA.year != objetoB.year) {
+      return objetoA.year - objetoB.year;
+    } else {
+      return objetoA.title.localeCompare(objetoB.title);
+    }
+  });
+  //console.log(auxArray);
+  return auxArray;
+}
+orderByYear(moviesTeste);
 // Iteration 6: Alphabetic Order - Order by title and print the first 20 titles
-function orderAlphabetically(moviesArray) {}
+function orderAlphabetically(moviesArray) {
+  let auxArray = Array.from(moviesArray);
+  auxArray.sort((objetoA, objetoB) => {
+    return objetoA.title.localeCompare(objetoB.title);
+  });
+  console.log(auxArray);
+  //if (auxArray.length > 20) {}
+  // mapeia so o titulo e corta até o 20th elemento
+  return auxArray
+    .map((cadaObjeto) => cadaObjeto.title)
+    .slice(0, Math.min(20, auxArray.length));
+}
 
 // BONUS - Iteration 7: Time Format - Turn duration of the movies from hours to minutes
 function turnHoursToMinutes(moviesArray) {}
